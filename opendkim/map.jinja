@@ -1,0 +1,29 @@
+# -*- coding: utf-8 -*-
+# vim: ft=jinja
+
+{## Start with  defaults from defaults.sls ##}
+{% import_yaml 'opendkim/defaults.yaml' as default_settings %}
+
+{## 
+Setup variable using grains['os_family'] based logic, only add key:values here
+that differ from whats in defaults.yaml
+##}
+{% set os_family_map = salt['grains.filter_by']({
+        'Debian': {},
+        'Suse': {},
+        'Arch': {},
+        'RedHat': {},
+  }
+  , grain="os_family"
+  , merge=salt['pillar.get']('opendkim:lookup'))
+%}
+{## Merge the flavor_map to the default settings ##}
+{% do default_settings.opendkim.update(os_family_map) %}
+
+{## Merge in opendkim:lookup pillar ##}
+{% set opendkim = salt['pillar.get'](
+        'opendkim',
+        default=default_settings.opendkim,
+        merge=True
+    )
+%}

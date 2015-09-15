@@ -1,0 +1,7 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+opendkim:
+  pkg: opendkim
+  config: '/etc/opendkim.conf'
+  service:
+    name: opendkim
