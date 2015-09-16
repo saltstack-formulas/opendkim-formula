@@ -1,24 +1,26 @@
 opendkim:
   conf:
+    UserID: "opendkim:opendkim"
+    KeyTables: "/etc/opendkim/KeyTable"
+    SigningTable: "/etc/opendkim/SigningTable"
     PidFile: "/var/run/opendkim/opendkim.pid"
     Mode: "v"
     Syslog: "yes"
     SyslogSuccess: "yes"
     LogWhy: "yes"
-    UserID: "opendkim:opendkim"
     Socket: "inet:8891@localhost"
     Umask: "002"
     SendReports: "no"
-    SoftewareHeader: "yes"
+    SoftwareHeader: "yes"
     Canonicalization: "relaxed/relaxed"
     Selector: "default"
     MinimumKeyBits: "1024"
-    KeyFile: "/etc/opendkim/key/default.private"
     OversignHeaders: "From"
-  key:
-    manageKeyTable: true
-    manageSigningTable: true
-    private:
+  manageKeyTable: true
+  manageSigningTable: true
+  privateKey:
+    directory: "/etc/opendkim/keys"
+    key:
       example.com:
         selector: |
           -----BEGIN RSA PRIVATE KEY-----

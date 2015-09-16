@@ -4,20 +4,8 @@ opendkim:
   pkg: opendkim
   config: '/etc/opendkim.conf'
   conf:
-    PidFile: "/var/run/opendkim/opendkim.pid"
-    Mode: "v"
-    Syslog: "yes"
-    SyslogSuccess: "yes"
-    LogWhy: "yes"
     UserID: "opendkim:opendkim"
-    Socket: "inet:8891@localhost"
-    Umask: "002"
-    SendReports: "no"
-    SoftewareHeader: "yes"
-    Canonicalization: "relaxed/relaxed"
-    Selector: "default"
-    MinimumKeyBits: "1024"
     KeyTable: "/etc/opendkim/KeyTable"
-    OversignHeaders: "From"
+    SigningTable: "/etc/opendkim/SigningTable"
   service:
     name: opendkim

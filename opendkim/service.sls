@@ -3,7 +3,7 @@
 
 {% from "opendkim/map.jinja" import opendkim with context %}
 
-opendkim-name:
+opendkim_service:
   service.running:
     - name: {{ opendkim.service.name }}
     - enable: True

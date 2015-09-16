@@ -14,3 +14,7 @@ opendkim-config:
     - backup: minion
     - context: 
         conf: {{ opendkim.conf }}
+    - watch_in:
+      - service: opendkim_service
+    - require:
+      - pkg: opendkim_packages 

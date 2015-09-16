@@ -3,6 +3,6 @@
 
 {% from "opendkim/map.jinja" import opendkim with context %}
 
-opendkim-pkg:
+opendkim_packages:
   pkg.installed:
     - name: {{ opendkim.pkg }}
