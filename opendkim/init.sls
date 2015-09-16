@@ -5,3 +5,4 @@ include:
   - opendkim.install
   - opendkim.config
   - opendkim.service
+  - opendkim.key

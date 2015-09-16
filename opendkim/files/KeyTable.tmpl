@@ -1,0 +1,7 @@
+## Managed by saltstack
+##default._domainkey.example.com example.com:default:/etc/opendkim/keys/default.private
+{%- for domainName, domain in key.items() %}
+  {%- for selector, key in domain.items() %}
+{{ selector }}._domainkey.{{ domainName }} {{ domainName }}:{{ selector }}:{{ keyDirectory }}/{{selector}}.private
+  {% endfor %}
+{%- endfor %}
