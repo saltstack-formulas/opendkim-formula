@@ -2,8 +2,7 @@
 opendkim-formula
 ================
 
-A saltstack formula that is empty. It has dummy content to help with a quick
-start on a new formula.
+A salt formula that installs and configures the opendkim milter. (see pillar.example).
 
 .. note::
 
@@ -18,5 +17,20 @@ Available states
 
 ``opendkim``
 ------------
+This does install, config, setup service and manage key.
 
-Installs the opendkim package, and starts the associated opendkim service.
+``opendkim.install``
+------------
+Install opendkim package
+
+``opendkim.config``
+------------
+Configure opendkim
+
+``opendkim.service``
+------------
+Setup service
+
+``opendkim.key``
+------------
+Manage private key. It can manage KeyTable and SigningTable by enabling in Pillar. (see pillar.example).
