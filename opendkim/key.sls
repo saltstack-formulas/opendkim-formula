@@ -58,8 +58,7 @@
 
 {% if 'manageSigningTable' in opendkim and 'SigningTable' in opendkim.conf and opendkim.manageSigningTable == true %}
 
-{%- set type, filePath = opendkim.conf.SigningTable.split(':') %}
-{{ filePath }}:
+{{ opendkim.conf.KeyTable }}:
   file.managed:
     - mode: 640
     - source: salt://opendkim/files/SigningTable.tmpl
