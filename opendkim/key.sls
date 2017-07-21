@@ -24,6 +24,7 @@
     - mode: 600
     - user: {{ user }} 
     - group: {{ group}}
+    - makedirs: True
     - contents: |
         {{ key | indent(8) }} 
     - watch_in:
@@ -37,12 +38,19 @@
 
 {% if 'manageKeyTable' in opendkim and 'KeyTable' in opendkim.conf and opendkim.manageKeyTable == true %}
 
-{{ opendkim.conf.KeyTable }}:
+{%- if "refile" in opendkim.conf.KeyTable %}
+{%- set type, filePath = opendkim.conf.KeyTable.split(':') %}
+{%- else %}
+{%- set filePath = opendkim.conf.KeyTable %}
+{%- endif %}
+
+{{ filePath }}:
   file.managed:
     - mode: 640
     - source: salt://opendkim/files/KeyTable.tmpl
     - user: {{ user }}
     - group: {{ group }}
+    - makedirs: True
     - template: 'jinja'
     - backup: minion
     - context:
@@ -58,19 +66,28 @@
 
 {% if 'manageSigningTable' in opendkim and 'SigningTable' in opendkim.conf and opendkim.manageSigningTable == true %}
 
+{%- if "refile" in opendkim.conf.SigningTable %}
 {%- set type, filePath = opendkim.conf.SigningTable.split(':') %}
+{%- else %}
+{%- set filePath = opendkim.conf.SigningTable %}
+{%- endif %}
+
 {{ filePath }}:
   file.managed:
     - mode: 640
     - source: salt://opendkim/files/SigningTable.tmpl
     - user: {{ user }}
     - group: {{ group }}
+    - makedirs: True
     - template: 'jinja'
     - backup: minion
     - context:
         key: {{ opendkim.privateKey.key }}
         keyDirectory: {{ opendkim.privateKey.directory }}
         SigningTable: {{ opendkim.conf.SigningTable }}
+{%- if type is defined %}
+        type: {{ type }}
+{%- endif %}
     - watch_in:
       - service: opendkim_service
     - require:

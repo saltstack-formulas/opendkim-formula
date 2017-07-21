@@ -7,5 +7,9 @@ opendkim:
     UserID: "opendkim:opendkim"
     KeyTable: "/etc/opendkim/KeyTable"
     SigningTable: "/etc/opendkim/SigningTable"
+    {%- if pillar.get('opendkim:trustedhosts') is defined %}
+    ExternalIgnoreList: "/etc/opendkim/TrustedHosts"
+    InternalHosts: "/etc/opendkim/TrustedHosts"
+    {%- endif %}
   service:
     name: opendkim
