@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 # vim: ft=sls
 
+include:
+  - opendkim.install
+  - opendkim.service
+
 {% from "opendkim/map.jinja" import opendkim with context %}
 
 opendkim-config:
